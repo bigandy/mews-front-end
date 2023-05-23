@@ -12,11 +12,13 @@
 
 ### "Search" View
 
-- [ ] paginated list of movies returned from the API
+- [ ] list of movies returned from the API
 - [ ] way to load an additional batch i.e. if there are more pages but we've only returned x pages.
 - [x] Clicking on a movie gets you to the "movie detail" view where detailed information about the movie should be listed.
 - [ ] add more content and style
 - [ ] pagination
+- [ ] Loading State
+- [ ] Error State
 
 ### Individual "Movie Detail" view
 

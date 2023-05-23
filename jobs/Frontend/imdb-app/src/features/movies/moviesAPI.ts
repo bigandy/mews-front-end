@@ -1,5 +1,5 @@
-export async function fetchMovies(query = ""): Promise<{ data: any }> {
-  const response = await fetch("/api/movies", {
+export async function searchMovies(query = ""): Promise<{ data: any }> {
+  const response = await fetch("/api/movie/search", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -12,7 +12,7 @@ export async function fetchMovies(query = ""): Promise<{ data: any }> {
 }
 
 export async function fetchSingleMovie(movieId = ""): Promise<{ data: any }> {
-  const response = await fetch("/api/singleMovie", {
+  const response = await fetch("/api/movie/detail", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

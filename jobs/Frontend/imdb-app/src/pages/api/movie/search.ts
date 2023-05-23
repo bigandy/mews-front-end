@@ -1,13 +1,13 @@
 import type { NextApiHandler } from "next";
 
-const moviesHandler: NextApiHandler = async (request, response) => {
+const handler: NextApiHandler = async (request, response) => {
   const { query = "" } = request.body;
 
-  const key = process.env.IMDB_API_KEY!;
+  const api_key = process.env.IMDB_API_KEY!;
 
   const searchParams = new URLSearchParams({
-    api_key: key,
-    query: query,
+    api_key,
+    query,
     page: "1",
     adult: "false",
   });
@@ -21,4 +21,4 @@ const moviesHandler: NextApiHandler = async (request, response) => {
   response.json({ data: moviesApiFetch.results });
 };
 
-export default moviesHandler;
+export default handler;

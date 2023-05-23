@@ -1,6 +1,6 @@
 import type { NextApiHandler } from "next";
 
-const singleMovieHandler: NextApiHandler = async (request, response) => {
+const handler: NextApiHandler = async (request, response) => {
   const { movieId = "" } = request.body;
 
   const key = process.env.IMDB_API_KEY!;
@@ -18,4 +18,4 @@ const singleMovieHandler: NextApiHandler = async (request, response) => {
   response.json({ data: moviesApiFetch });
 };
 
-export default singleMovieHandler;
+export default handler;
