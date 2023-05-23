@@ -12,21 +12,30 @@
 
 ### "Search" View
 
-- paginated list of movies returned from the API
-- way to load an additional batch i.e. if there are more pages but we've only returned x pages.
-- Clicking on a movie gets you to the "movie detail" view where detailed information about the movie should be listed.
+- [ ] paginated list of movies returned from the API
+- [ ] way to load an additional batch i.e. if there are more pages but we've only returned x pages.
+- [x] Clicking on a movie gets you to the "movie detail" view where detailed information about the movie should be listed.
+- [ ] add more content and style
+- [ ] pagination
 
 ### Individual "Movie Detail" view
 
-- show further details about the movie
-- link back to the homepage
+- [x] show further details about the movie
+- [x] link back to the homepage
+- [ ] add more content and style
 
 ## Search box
 
-- a component that will trigger the searching within the API when you have stopped typing (no submit button). useDebouncedCallback ?
+- [x] a component that will trigger the searching within the API
+- [ ] triggered when you have stopped typing (no submit button). useDebouncedCallback ?
 
 # Tasks
 
 - [x] setup i.e. install dependencies
-- [ ] set up moviesSlice in redux
-- [ ] Search Box
+- [x] set up moviesSlice in redux
+- [x] Search Box
+
+## Extras
+
+- [ ] Component testing
+- [ ] responsive styles
