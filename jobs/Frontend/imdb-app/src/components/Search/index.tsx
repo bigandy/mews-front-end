@@ -2,9 +2,8 @@ import { useState } from "react";
 
 import { useAppDispatch } from "../../hooks";
 import { searchMoviesAsync } from "../../features/movies/moviesSlice";
-// import styles from "./Counter.module.css";
 
-function Input() {
+function Search() {
   const dispatch = useAppDispatch();
 
   const [input, setInput] = useState("");
@@ -28,4 +27,4 @@ function Input() {
   );
 }
 
-export default Input;
+export default Search;

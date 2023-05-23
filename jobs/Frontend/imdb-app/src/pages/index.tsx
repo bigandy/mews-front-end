@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 
-import Input from "../components/Input";
+import Input from "../components/Search";
 import SingleMovie from "../components/SingleMovie";
 import MovieList from "../components/MovieList";
 

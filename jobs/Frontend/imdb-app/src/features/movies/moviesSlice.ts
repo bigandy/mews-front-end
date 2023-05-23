@@ -1,7 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { searchMovies, fetchSingleMovie } from "./moviesAPI";
-
 export interface MoviesState {
   value: string;
   status: "idle" | "loading" | "failed";
@@ -23,8 +21,15 @@ const initialState: MoviesState = {
 // typically used to make async requests.
 export const searchMoviesAsync = createAsyncThunk(
   "movies/fetchMovies",
-  async (term: string) => {
-    const response = await searchMovies(term);
+  async (query: string) => {
+    const response = await fetch(`/api/movie/search`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ query }),
+    }).then((response) => response.json());
+
     // The value we return becomes the `fulfilled` action payload
     return response.data;
   }
@@ -34,7 +39,13 @@ export const searchMoviesAsync = createAsyncThunk(
 export const searchSingleMovieAsync = createAsyncThunk(
   "movies/fetchSingleMovie",
   async (movieId: string) => {
-    const response = await fetchSingleMovie(movieId);
+    const response = await fetch(`/api/movie/detail`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ movieId }),
+    }).then((response) => response.json());
     // The value we return becomes the `fulfilled` action payload
     return response.data;
   }
