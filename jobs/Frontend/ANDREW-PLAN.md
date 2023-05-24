@@ -12,11 +12,11 @@
 
 ### "Search" View
 
-- [ ] list of movies returned from the API
-- [ ] way to load an additional batch i.e. if there are more pages but we've only returned x pages.
+- [x] list of movies returned from the API
+- [x] way to load an additional batch i.e. if there are more pages but we've only returned x pages.
 - [x] Clicking on a movie gets you to the "movie detail" view where detailed information about the movie should be listed.
+- [x] pagination
 - [ ] add more content and style
-- [ ] pagination
 - [ ] Loading State
 - [ ] Error State
 
@@ -29,7 +29,7 @@
 ## Search box
 
 - [x] a component that will trigger the searching within the API
-- [ ] triggered when you have stopped typing (no submit button). useDebouncedCallback ?
+- [x] triggered when you have stopped typing (no submit button). useDebouncedCallback ?
 
 # Tasks
 
@@ -41,3 +41,4 @@
 
 - [ ] Component testing
 - [ ] responsive styles
+- [ ] is Next really necessary? i.e. could react-router be used?
