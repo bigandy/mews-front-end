@@ -1,5 +1,4 @@
 import { useAppSelector } from "../../hooks";
-import { moviesResult } from "../../store/movies/moviesSlice";
 import { useRouter } from "next/router";
 import { styled } from "styled-components";
 import { Movie } from "../../types";
@@ -10,17 +9,24 @@ const MovieListContainer = styled.div`
 `;
 
 const MovieList = () => {
-  const results = useAppSelector(moviesResult);
+  const search = useAppSelector((state) => state.search.search);
+  const movies = useAppSelector(
+    (state) => state.moviesApi.queries[`search("${search}")`]?.data ?? []
+  );
 
   return (
     <MovieListContainer>
-      {Boolean(results?.length > 0) ? (
-        results.map((movie: Movie) => (
-          <MovieListItem key={movie.id} movie={movie} />
-        ))
-      ) : (
-        <div>No Movies Found</div>
-      )}
+      {
+        // @ts-expect-error
+        Boolean(movies?.length > 0) ? (
+          // @ts-expect-error
+          movies.map((movie: Movie) => (
+            <MovieListItem key={movie.id} movie={movie} />
+          ))
+        ) : (
+          <div>No Movies Found</div>
+        )
+      }
     </MovieListContainer>
   );
 };
@@ -58,6 +64,7 @@ const MovieListItem = ({ movie }: { movie: Movie }) => {
         src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`}
         alt=""
         width={200}
+        height={300}
       />
 
       <button onClick={handleMovieClick}>

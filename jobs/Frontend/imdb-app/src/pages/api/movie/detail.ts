@@ -1,7 +1,7 @@
 import type { NextApiHandler } from "next";
 
 const handler: NextApiHandler = async (request, response) => {
-  const { movieId = "" } = request.body;
+  const { movieId } = request.query;
 
   const key = process.env.IMDB_API_KEY!;
 
@@ -15,7 +15,7 @@ const handler: NextApiHandler = async (request, response) => {
     .then((response) => response.json())
     .catch((e) => console.error(e));
 
-  response.json({ data: moviesApiFetch });
+  response.json(moviesApiFetch);
 };
 
 export default handler;

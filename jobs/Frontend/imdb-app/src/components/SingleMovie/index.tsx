@@ -1,46 +1,33 @@
-import { useEffect } from "react";
-
-import { useAppSelector, useAppDispatch } from "../../hooks";
-import {
-  searchSingleMovieAsync,
-  singleMovieResult,
-  clearSingleMovie,
-} from "../../store/movies/moviesSlice";
+import { useDetailQuery } from "../../store/movies/moviesApi";
 import { useRouter } from "next/router";
 
 const SingleMovie = ({ movieId }: { movieId: string }) => {
-  const dispatch = useAppDispatch();
-  const result = useAppSelector(singleMovieResult);
+  // const result = useAppSelector(singleMovieResult);
   const router = useRouter();
 
-  useEffect(() => {
-    const doFetch = async () => {
-      dispatch(searchSingleMovieAsync(movieId));
-    };
-
-    doFetch();
-  }, []);
+  const { data, isLoading, error } = useDetailQuery(movieId);
 
   const handleBack = () => {
     // swipe off the movieId from the query params.
     router.replace("/", undefined, { shallow: true });
-    // empty the singleMovie state in the movieSlice
-    dispatch(clearSingleMovie());
   };
 
-  // TODO: Get Loading animation + state.
+  // TODO: Get Loading animation, get Error State.
+  if (isLoading) {
+    <div>loading...</div>;
+  }
 
   return (
     <div>
       <a href="#" onClick={handleBack}>
         &larr; Back to Home
       </a>
-      {result && (
+      {data && (
         <div>
-          <h3>{result.title}</h3>
-          <h4>{result.tagline}</h4>
+          <h3>{data.title}</h3>
+          <h4>{data.tagline}</h4>
           <img
-            src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${result.poster_path}`}
+            src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${data.poster_path}`}
             alt=""
           />
         </div>

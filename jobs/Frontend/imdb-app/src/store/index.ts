@@ -1,16 +1,17 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 
-import moviesReducer from "./movies/moviesSlice";
+import searchSlice from "./search/searchSlice";
+import { moviesApi } from "./movies/moviesApi";
 
-export function makeStore() {
-  return configureStore({
-    reducer: {
-      movies: moviesReducer,
-    },
-  });
-}
-
-const store = makeStore();
+export const store = configureStore({
+  reducer: {
+    [moviesApi.reducerPath]: moviesApi.reducer,
+    search: searchSlice,
+  },
+  middleware(getDefaultMiddleware) {
+    return getDefaultMiddleware().concat(moviesApi.middleware);
+  },
+});
 
 export type AppState = ReturnType<typeof store.getState>;
 

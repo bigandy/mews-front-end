@@ -13,7 +13,8 @@
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-redux": "^7.2.0",
-    "styled-components": "6.0.0-rc.2"
+    "styled-components": "6.0.0-rc.2",
+    "usehooks-ts": "2.9.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.0.0",
