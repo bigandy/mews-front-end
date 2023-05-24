@@ -14,11 +14,11 @@ const IndexPage: NextPage = () => {
   return (
     <div className={"container"}>
       <h1>IMDB App</h1>
-      <SearchInput />
       {movieId && movieId !== "" ? (
         <SingleMovie movieId={movieId as string} />
       ) : (
         <Fragment>
+          <SearchInput />
           <MovieList />
         </Fragment>
       )}

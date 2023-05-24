@@ -1,11 +1,26 @@
 import { useState } from "react";
 
 import { useAppDispatch } from "../../hooks";
-import { searchMoviesAsync } from "../../features/movies/moviesSlice";
-import { styled } from "styled-components";
+import { searchMoviesAsync } from "../../store/movies/moviesSlice";
+import { styled, css } from "styled-components";
 
-const SearchInput = styled.input<{ primary: boolean }>`
+type StyleTypes = {
+  primary: boolean;
+};
+
+const SearchInput = styled.input<StyleTypes>`
   padding: 1rem;
+
+  ${(props) =>
+    props.primary &&
+    css`
+      color: white;
+      background: black;
+
+      &:focus {
+        background: darkslategray;
+      }
+    `}
 `;
 
 function Search() {

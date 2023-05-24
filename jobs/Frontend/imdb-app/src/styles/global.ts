@@ -22,4 +22,12 @@ export default createGlobalStyle`
         max-width: 100ch;
         margin-inline: auto;
     }
+
+    body {
+        background-color: ${(props) => props.theme.colors.secondary};
+    }
+
+    ::placeholder {
+        color: white;
+    }
 `;

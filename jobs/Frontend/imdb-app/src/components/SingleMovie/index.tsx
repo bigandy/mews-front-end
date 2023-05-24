@@ -5,7 +5,7 @@ import {
   searchSingleMovieAsync,
   singleMovieResult,
   clearSingleMovie,
-} from "../../features/movies/moviesSlice";
+} from "../../store/movies/moviesSlice";
 import { useRouter } from "next/router";
 
 const SingleMovie = ({ movieId }: { movieId: string }) => {
@@ -32,7 +32,9 @@ const SingleMovie = ({ movieId }: { movieId: string }) => {
 
   return (
     <div>
-      <div onClick={handleBack}>&larr; Back to Home</div>
+      <a href="#" onClick={handleBack}>
+        &larr; Back to Home
+      </a>
       {result && (
         <div>
           <h3>{result.title}</h3>
