@@ -2,6 +2,11 @@ import { useState } from "react";
 
 import { useAppDispatch } from "../../hooks";
 import { searchMoviesAsync } from "../../features/movies/moviesSlice";
+import { styled } from "styled-components";
+
+const SearchInput = styled.input<{ primary: boolean }>`
+  padding: 1rem;
+`;
 
 function Search() {
   const dispatch = useAppDispatch();
@@ -17,11 +22,12 @@ function Search() {
 
   return (
     <div>
-      <input
+      <SearchInput
         aria-label={placeholder}
         value={input}
         onChange={handleInput}
         placeholder={placeholder}
+        primary
       />
     </div>
   );
