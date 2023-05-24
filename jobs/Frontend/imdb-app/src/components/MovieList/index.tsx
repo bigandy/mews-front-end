@@ -11,7 +11,6 @@ const MovieListContainer = styled.div`
 `;
 
 const MovieList = () => {
-  const dispatch = useAppDispatch();
   const query = useAppSelector((state) => state.search.search);
   const page = useAppSelector((state) => state.search.page);
   const movies = useAppSelector((state) => {
@@ -23,13 +22,7 @@ const MovieList = () => {
 
   return (
     <MovieListContainer>
-      <div>
-        Page {page}{" "}
-        <button disabled={page < 2} onClick={() => dispatch(setPage(page - 1))}>
-          Previous Page
-        </button>
-        <button onClick={() => dispatch(setPage(page + 1))}>Next Page</button>
-      </div>
+      <Pagination />
       {
         // @ts-expect-error
         Boolean(movies?.length > 0) ? (
@@ -41,7 +34,29 @@ const MovieList = () => {
           <div>No Movies Found</div>
         )
       }
+      <Pagination />
     </MovieListContainer>
+  );
+};
+
+const PaginationContainer = styled.div`
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+`;
+
+const Pagination = () => {
+  const dispatch = useAppDispatch();
+  const page = useAppSelector((state) => state.search.page);
+
+  return (
+    <PaginationContainer>
+      <button disabled={page < 2} onClick={() => dispatch(setPage(page - 1))}>
+        Previous Page
+      </button>
+      Page {page}{" "}
+      <button onClick={() => dispatch(setPage(page + 1))}>Next Page</button>
+    </PaginationContainer>
   );
 };
 
@@ -54,10 +69,6 @@ const MovieListItemContainer = styled.div`
   display: grid;
   grid-template-columns: max-content 1fr;
   gap: 1em;
-
-  img {
-    order: -1;
-  }
 `;
 
 const MovieListItem = ({ movie }: { movie: Movie }) => {

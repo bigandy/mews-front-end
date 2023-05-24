@@ -16,6 +16,7 @@ type StyleTypes = {
 
 const SearchInput = styled.input<StyleTypes>`
   padding: 1rem;
+  width: 100%;
 
   ${(props) =>
     props.primary &&
@@ -69,15 +70,13 @@ function Search() {
   }
 
   return (
-    <div>
-      <SearchInput
-        aria-label={placeholder}
-        value={input}
-        onChange={handleInput}
-        placeholder={placeholder}
-        primary
-      />
-    </div>
+    <SearchInput
+      aria-label={placeholder}
+      value={input}
+      onChange={handleInput}
+      placeholder={placeholder}
+      primary
+    />
   );
 }
 
