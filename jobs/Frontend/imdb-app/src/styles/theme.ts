@@ -4,7 +4,10 @@ import { DefaultTheme } from "styled-components";
 const spacingUnit = 8;
 
 const theme: DefaultTheme = {
-  borderRadius: "5px",
+  borderRadius: {
+    standard: "5px",
+    max: "5em",
+  },
 
   spacing: {
     half: `${spacingUnit * 0.5}px`,

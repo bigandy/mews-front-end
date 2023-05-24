@@ -1,7 +1,9 @@
-import { useAppSelector } from "../../hooks";
+import { useAppSelector, useAppDispatch } from "../../hooks";
 import { useRouter } from "next/router";
 import { styled } from "styled-components";
 import { Movie } from "../../types";
+
+import { setPage } from "../../store/search/searchSlice";
 
 const MovieListContainer = styled.div`
   padding: ${(props) => props.theme.spacing.single};
@@ -9,13 +11,25 @@ const MovieListContainer = styled.div`
 `;
 
 const MovieList = () => {
-  const search = useAppSelector((state) => state.search.search);
-  const movies = useAppSelector(
-    (state) => state.moviesApi.queries[`search("${search}")`]?.data ?? []
-  );
+  const dispatch = useAppDispatch();
+  const query = useAppSelector((state) => state.search.search);
+  const page = useAppSelector((state) => state.search.page);
+  const movies = useAppSelector((state) => {
+    return (
+      state.moviesApi.queries[`search({"page":${page},"query":"${query}"})`]
+        ?.data ?? []
+    );
+  });
 
   return (
     <MovieListContainer>
+      <div>
+        Page {page}{" "}
+        <button disabled={page < 2} onClick={() => dispatch(setPage(page - 1))}>
+          Previous Page
+        </button>
+        <button onClick={() => dispatch(setPage(page + 1))}>Next Page</button>
+      </div>
       {
         // @ts-expect-error
         Boolean(movies?.length > 0) ? (
@@ -32,12 +46,13 @@ const MovieList = () => {
 };
 
 const MovieListItemContainer = styled.div`
+  background-color: ${(props) => props.theme.colors.white};
   border: 1px solid ${(props) => props.theme.border.color};
-  border-radius: ${(props) => props.theme.borderRadius};
+  border-radius: ${(props) => props.theme.borderRadius.standard};
   padding: ${(props) => props.theme.spacing.double};
   margin-block: ${(props) => props.theme.spacing.quadrouple};
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: max-content 1fr;
   gap: 1em;
 
   img {
@@ -59,8 +74,8 @@ const MovieListItem = ({ movie }: { movie: Movie }) => {
         <img
           src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`}
           alt=""
-          width={200}
-          height={300}
+          width={100}
+          height={150}
         />
       ) : (
         <div>No Image</div>
@@ -68,11 +83,11 @@ const MovieListItem = ({ movie }: { movie: Movie }) => {
       <div>
         <h2>{movie.original_title}</h2>
         <p>{movie.overview}</p>
-      </div>
 
-      <button onClick={handleMovieClick}>
-        View more about {movie.original_title} &rarr;
-      </button>
+        <button onClick={handleMovieClick}>
+          View more about {movie.original_title} &rarr;
+        </button>
+      </div>
     </MovieListItemContainer>
   );
 };

@@ -1,14 +1,14 @@
 import type { NextApiHandler } from "next";
 
 const handler: NextApiHandler = async (request, response) => {
-  const { query } = request.query;
+  const { query, page } = request.query;
 
   const api_key = process.env.IMDB_API_KEY!;
 
   const searchParams = new URLSearchParams({
     api_key,
-    query: query as string,
-    page: "1",
+    query: String(query),
+    page: String(page),
     adult: "false",
   });
 
