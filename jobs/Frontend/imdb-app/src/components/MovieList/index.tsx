@@ -55,17 +55,20 @@ const MovieListItem = ({ movie }: { movie: Movie }) => {
 
   return (
     <MovieListItemContainer>
+      {movie.poster_path ? (
+        <img
+          src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`}
+          alt=""
+          width={200}
+          height={300}
+        />
+      ) : (
+        <div>No Image</div>
+      )}
       <div>
         <h2>{movie.original_title}</h2>
         <p>{movie.overview}</p>
       </div>
-
-      <img
-        src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}`}
-        alt=""
-        width={200}
-        height={300}
-      />
 
       <button onClick={handleMovieClick}>
         View more about {movie.original_title} &rarr;

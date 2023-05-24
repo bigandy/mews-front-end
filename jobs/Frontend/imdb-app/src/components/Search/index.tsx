@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useDebounce } from "usehooks-ts";
 import { useAppSelector, useAppDispatch } from "../../hooks";
 
@@ -34,12 +35,18 @@ function Search() {
 
   const dispatch = useAppDispatch();
   const search = useAppSelector((state) => state.search.search);
-  const debouncedInput = useDebounce<string>(search, 500);
+  const [input, setInput] = useState(search);
+  const debouncedInput = useDebounce<string>(input, 500);
 
   const { data, error, isLoading } = useSearchQuery(debouncedInput);
 
+  useEffect(() => {
+    dispatch(setSearch(debouncedInput));
+  }, [debouncedInput]);
+
   const handleInput = (e: any) => {
-    dispatch(setSearch(e.target.value));
+    setInput(e.target.value);
+
     // dispatch(searchMoviesAsync(e.target.value));
   };
 
@@ -59,7 +66,7 @@ function Search() {
     <div>
       <SearchInput
         aria-label={placeholder}
-        value={search}
+        value={input}
         onChange={handleInput}
         placeholder={placeholder}
         primary

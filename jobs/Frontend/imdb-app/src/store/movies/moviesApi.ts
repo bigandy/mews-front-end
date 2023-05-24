@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import type { Movie } from "../../types";
+import type { Movie, SingleMovie } from "../../types";
 
 // Define a service using a base URL and expected endpoints
 export const moviesApi = createApi({
@@ -10,7 +10,7 @@ export const moviesApi = createApi({
     search: builder.query<Movie[], string>({
       query: (name) => `search?query=${name}`,
     }),
-    detail: builder.query<Movie, string>({
+    detail: builder.query<SingleMovie, string>({
       query: (name) => `detail?movieId=${name}`,
     }),
   }),
