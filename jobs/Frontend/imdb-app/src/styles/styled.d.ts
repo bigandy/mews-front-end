@@ -28,6 +28,12 @@ declare module "styled-components" {
       white: string;
     };
 
+    input: {
+      color: string;
+      background: string;
+      borderColor: string;
+    };
+
     body: {
       color: string;
       background: string;

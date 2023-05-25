@@ -35,6 +35,12 @@ const lightTheme: DefaultTheme = {
     secondary: "magenta",
   },
 
+  input: {
+    background: "black",
+    color: "white",
+    borderColor: "black",
+  },
+
   body: {
     color: "white",
     background: "black",
@@ -48,6 +54,12 @@ const darkTheme: DefaultTheme = {
     ...globalTheme.colors,
     main: "cyan",
     secondary: "magenta",
+  },
+
+  input: {
+    background: "black",
+    color: "white",
+    borderColor: "white",
   },
 
   body: {

@@ -19,14 +19,14 @@ type StyleTypes = {
 const SearchInput = styled.input<StyleTypes>`
   padding: 1rem;
   width: 100%;
-  border: 1px solid transparent;
+  border: 1px solid ${(props) => props.theme.input.borderColor};
+
+  color: ${(props) => props.theme.input.color};
+  background: ${(props) => props.theme.input.background};
 
   ${(props) =>
     props.primary &&
     css`
-      color: props.theme.body.color;
-      background: props.theme.body.background;
-
       &:focus {
         background: darkslategray;
       }
