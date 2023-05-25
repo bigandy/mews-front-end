@@ -3,12 +3,11 @@ import { DefaultTheme } from "styled-components";
 
 const spacingUnit = 8;
 
-const theme: DefaultTheme = {
+const globalTheme = {
   borderRadius: {
     standard: "5px",
     max: "5em",
   },
-
   spacing: {
     half: `${spacingUnit * 0.5}px`,
     single: `${spacingUnit}px`,
@@ -24,9 +23,37 @@ const theme: DefaultTheme = {
   colors: {
     white: "white",
     black: "black",
-    main: "cyan",
-    secondary: "magenta",
   },
 };
 
-export { theme };
+const lightTheme: DefaultTheme = {
+  ...globalTheme,
+
+  colors: {
+    ...globalTheme.colors,
+    main: "cyan",
+    secondary: "magenta",
+  },
+
+  body: {
+    color: "white",
+    background: "black",
+  },
+};
+
+const darkTheme: DefaultTheme = {
+  ...globalTheme,
+
+  colors: {
+    ...globalTheme.colors,
+    main: "cyan",
+    secondary: "magenta",
+  },
+
+  body: {
+    color: "black",
+    background: "white",
+  },
+};
+
+export { lightTheme, darkTheme };

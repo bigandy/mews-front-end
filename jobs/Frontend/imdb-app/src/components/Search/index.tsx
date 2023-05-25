@@ -13,7 +13,7 @@ import { setSearch } from "../../store/search/searchSlice";
 type StyleTypes = {
   primary: boolean;
   loading: boolean;
-  error: boolean;
+  // error: boolean;
 };
 
 const SearchInput = styled.input<StyleTypes>`
@@ -24,17 +24,12 @@ const SearchInput = styled.input<StyleTypes>`
   ${(props) =>
     props.primary &&
     css`
-      color: white;
-      background: black;
+      color: props.theme.body.color;
+      background: props.theme.body.background;
 
       &:focus {
         background: darkslategray;
       }
-    `}
-  ${(props) =>
-    props.error &&
-    css`
-      border-color: red;
     `}
 `;
 
@@ -69,7 +64,6 @@ function Search() {
       placeholder={placeholder}
       primary
       loading={isLoading}
-      error={!!error}
     />
   );
 }

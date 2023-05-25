@@ -48,7 +48,8 @@ export default createGlobalStyle`
     }
 
     body {
-        background-color: ${(props) => props.theme.colors.secondary};
+        background-color: ${(props) => props.theme.body.background};
+        color: ${(props) => props.theme.body.color};
     }
 
     ::placeholder {

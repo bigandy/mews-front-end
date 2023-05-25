@@ -27,5 +27,10 @@ declare module "styled-components" {
       black: string;
       white: string;
     };
+
+    body: {
+      color: string;
+      background: string;
+    };
   }
 }

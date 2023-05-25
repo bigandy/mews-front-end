@@ -4,8 +4,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "type-check": "tsc",
-    "test": "jest"
+    "type-check": "tsc"
   },
   "dependencies": {
     "@reduxjs/toolkit": "1.9.5",
@@ -17,16 +16,11 @@
     "usehooks-ts": "2.9.1"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.0.0",
-    "@testing-library/react": "^14.0.0",
-    "@testing-library/user-event": "^13.0.0",
-    "@types/jest": "29.5.1",
     "@types/node": "20.2.3",
     "@types/react": "18.2.7",
     "@types/react-dom": "18.2.4",
     "@types/react-redux": "7.1.25",
     "@types/styled-components": "5.1.26",
-    "ts-node": "10.9.1",
     "typescript": "5.0.4"
   }
 }
