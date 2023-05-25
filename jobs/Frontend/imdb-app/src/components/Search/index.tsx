@@ -12,11 +12,14 @@ import { setSearch } from "../../store/search/searchSlice";
 
 type StyleTypes = {
   primary: boolean;
+  loading: boolean;
+  error: boolean;
 };
 
 const SearchInput = styled.input<StyleTypes>`
   padding: 1rem;
   width: 100%;
+  border: 1px solid transparent;
 
   ${(props) =>
     props.primary &&
@@ -28,12 +31,14 @@ const SearchInput = styled.input<StyleTypes>`
         background: darkslategray;
       }
     `}
+  ${(props) =>
+    props.error &&
+    css`
+      border-color: red;
+    `}
 `;
 
 function Search() {
-  // const dispatch = useAppDispatch();
-  // useGetMoviesListQuery;
-
   const dispatch = useAppDispatch();
   const search = useAppSelector((state) => state.search.search);
   const page = useAppSelector((state) => state.search.page);
@@ -41,7 +46,7 @@ function Search() {
   const [input, setInput] = useState(search);
   const debouncedInput = useDebounce<string>(input, 500);
 
-  const { data, error, isLoading } = useSearchQuery({
+  const { error, isLoading } = useSearchQuery({
     query: debouncedInput,
     page: page,
   });
@@ -52,22 +57,9 @@ function Search() {
 
   const handleInput = (e: any) => {
     setInput(e.target.value);
-
-    // dispatch(searchMoviesAsync(e.target.value));
   };
 
-  console.log({ data, error, isLoading });
-
   const placeholder = "Set Movie Search Term";
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    console.error(error);
-    return <div>Error </div>;
-  }
 
   return (
     <SearchInput
@@ -76,6 +68,8 @@ function Search() {
       onChange={handleInput}
       placeholder={placeholder}
       primary
+      loading={isLoading}
+      error={!!error}
     />
   );
 }

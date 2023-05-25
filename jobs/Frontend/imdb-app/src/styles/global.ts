@@ -9,7 +9,7 @@ export default createGlobalStyle`
         Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
     }
 
-    h1, h2, h3 {
+    h1, h2, h3, h4 {
         margin-top: 0;
     }
 
