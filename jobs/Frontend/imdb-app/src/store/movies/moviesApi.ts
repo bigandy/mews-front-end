@@ -7,7 +7,10 @@ export const moviesApi = createApi({
   reducerPath: "moviesApi",
   baseQuery: fetchBaseQuery({ baseUrl: "/api/movie/" }),
   endpoints: (builder) => ({
-    search: builder.query<Movie[], { query: string; page: number }>({
+    search: builder.query<
+      { results: Movie[]; total_pages: number },
+      { query: string; page: number }
+    >({
       query: ({ query, page }) => `search?query=${query}&page=${page}`,
     }),
     detail: builder.query<SingleMovie, string>({

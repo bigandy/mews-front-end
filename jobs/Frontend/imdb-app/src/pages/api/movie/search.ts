@@ -18,7 +18,7 @@ const handler: NextApiHandler = async (request, response) => {
     .then((response) => response.json())
     .catch((e) => console.error(e));
 
-  response.json(moviesApiFetch.results);
+  response.json(moviesApiFetch);
 };
 
 export default handler;

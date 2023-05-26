@@ -1,9 +1,10 @@
 import { useAppSelector, useAppDispatch } from "../../hooks";
 import { useRouter } from "next/router";
-import { styled } from "styled-components";
+import { styled, css } from "styled-components";
 import { Movie } from "../../types";
 
 import { setPage } from "../../store/search/searchSlice";
+import { getSlice } from "../../utils/getSlice";
 
 const MovieListContainer = styled.div`
   padding: ${(props) => props.theme.spacing.single};
@@ -13,28 +14,34 @@ const MovieListContainer = styled.div`
 const MovieList = () => {
   const query = useAppSelector((state) => state.search.search);
   const page = useAppSelector((state) => state.search.page);
-  const movies = useAppSelector((state) => {
+
+  // @ts-expect-error
+  const { results: movies } = useAppSelector((state) => {
     return (
       state.moviesApi.queries[`search({"page":${page},"query":"${query}"})`]
         ?.data ?? []
     );
   });
 
+  console.log({ movies });
+
+  // const movies = useAppSelector((state) => {
+  //   return (
+  //     state.moviesApi.queries[`search({"page":${page},"query":"${query}"})`]
+  //       ?.data?.results ?? []
+  //   );
+  // });
+
   return (
     <MovieListContainer>
       <Pagination />
-      {
-        // @ts-expect-error
-        Boolean(movies?.length > 0) ? (
-          // @ts-expect-error
-          movies.map((movie: Movie) => (
-            <MovieListItem key={movie.id} movie={movie} />
-          ))
-        ) : (
-          <div>No Movies Found</div>
-        )
-      }
-      <Pagination />
+      {Boolean(movies?.length > 0) ? (
+        movies.map((movie: Movie) => (
+          <MovieListItem key={movie.id} movie={movie} />
+        ))
+      ) : (
+        <div>No Movies Found</div>
+      )}
     </MovieListContainer>
   );
 };
@@ -45,17 +52,70 @@ const PaginationContainer = styled.div`
   align-items: center;
 `;
 
+const PaginationDot = styled.div<{ currentPage?: boolean }>`
+  border-radius: 50%;
+  cursor: pointer;
+  background: red;
+  color: white;
+  padding: 0.25rem;
+  transition: 300ms ease;
+
+  &:hover {
+    background: rgb(255 0 0 / 0.5);
+  }
+
+  ${(props) =>
+    props.currentPage &&
+    css`
+      background: green;
+      cursor: not-allowed;
+
+      &:hover {
+        background: rgb(0 255 0 / 0.5);
+      }
+    `}
+`;
+
 const Pagination = () => {
   const dispatch = useAppDispatch();
   const page = useAppSelector((state) => state.search.page);
+  const query = useAppSelector((state) => state.search.search);
+
+  // @ts-expect-error
+  const { total_pages } = useAppSelector((state) => {
+    return (
+      state.moviesApi.queries[`search({"page":${page},"query":"${query}"})`]
+        ?.data ?? 1
+    );
+  });
+
+  const slice = getSlice(page, total_pages);
 
   return (
     <PaginationContainer>
       <button disabled={page < 2} onClick={() => dispatch(setPage(page - 1))}>
         Previous Page
       </button>
-      Page {page}{" "}
-      <button onClick={() => dispatch(setPage(page + 1))}>Next Page</button>
+
+      {slice.map((slice) => {
+        return (
+          <PaginationDot
+            currentPage={page === slice}
+            onClick={() =>
+              page === slice ? () => {} : dispatch(setPage(slice))
+            }
+          >
+            {slice}
+          </PaginationDot>
+        );
+      })}
+
+      <button
+        disabled={page >= total_pages}
+        onClick={() => dispatch(setPage(page))}
+      >
+        Next Page
+      </button>
     </PaginationContainer>
   );
 };
